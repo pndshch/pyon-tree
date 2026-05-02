@@ -4,244 +4,120 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ぴょんぴょんき | Pinda Lab</title>
-<meta name="description" content="タップで木がぴょんぴょん!たくさんタップすると花や実がなる、無限のんびりゲーム。">
-<meta property="og:title" content="ぴょんぴょんき">
-<meta property="og:description" content="タップで木が育つ、のんびり禅ゲーム">
+<meta property="og:title" content="Bouncy Tree">
 <meta property="og:url" content="https://pndshch.github.io/pyon-tree/">
-<meta name="twitter:card" content="summary">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body, html { height: 100%; overflow: hidden; }
-body {
-    background: linear-gradient(180deg, #87ceeb 0%, #b8e0d2 50%, #6ab05f 100%);
-    color: #2d3748;
-    font-family: 'Hiragino Maru Gothic ProN', system-ui, sans-serif;
-    height: 100vh;
-    position: relative;
-    user-select: none;
-}
-.topbar {
-    position: absolute;
-    top: 12px;
-    left: 12px; right: 12px;
-    display: flex; justify-content: space-between;
-    color: #2d3748;
-    font-size: 12px;
-    z-index: 10;
-    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-    font-weight: 700;
-}
+body { background: linear-gradient(180deg, #87ceeb 0%, #b8e0d2 50%, #6ab05f 100%); color: #2d3748; font-family: 'Hiragino Maru Gothic ProN', system-ui, sans-serif; height: 100vh; position: relative; user-select: none; }
+.lang-switch { position: absolute; top: 12px; right: 12px; display: flex; gap: 2px; background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 3px; z-index: 100; }
+.lang-btn { background: transparent; border: none; color: #2d3748; font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-family: system-ui, sans-serif; }
+.lang-btn.active { background: #16a34a; color: #fff; }
+.topbar { position: absolute; top: 12px; left: 12px; display: flex; color: #2d3748; font-size: 12px; z-index: 10; text-shadow: 0 1px 2px rgba(255,255,255,0.5); font-weight: 700; }
 .topbar a { color: #2d3748; text-decoration: none; }
-
-#stage {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    cursor: pointer;
-}
-.tree {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-}
+#stage { position: absolute; inset: 0; overflow: hidden; cursor: pointer; }
+.tree { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); transition: transform 0.3s cubic-bezier(.34,1.56,.64,1); }
 .tree.bounce { animation: bounce 0.5s; }
-@keyframes bounce {
-    0% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-30px) scale(1.05); }
-    100% { transform: translateX(-50%) translateY(0); }
-}
-.trunk {
-    width: 36px;
-    background: linear-gradient(90deg, #6b4423 0%, #8b5a2b 50%, #6b4423 100%);
-    margin: 0 auto;
-    border-radius: 4px 4px 0 0;
-    transition: height 0.3s ease, width 0.3s ease;
-}
-.foliage {
-    background: radial-gradient(circle, #4ade80 0%, #16a34a 70%);
-    border-radius: 50%;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    margin: 0 auto -10px;
-    position: relative;
-    transition: width 0.3s ease, height 0.3s ease, background 0.5s ease;
-}
-.foliage.flowering {
-    background: radial-gradient(circle, #f9a8d4 30%, #ec4899 100%);
-}
-.foliage.fruiting {
-    background: radial-gradient(circle, #ef4444 20%, #dc2626 100%);
-}
-.fruit-emoji {
-    position: absolute;
-    font-size: 20px;
-    pointer-events: none;
-}
-
-#counter {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255,255,255,0.85);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #2d3748;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+@keyframes bounce { 0% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-30px) scale(1.05); } 100% { transform: translateX(-50%) translateY(0); } }
+.trunk { width: 36px; background: linear-gradient(90deg, #6b4423 0%, #8b5a2b 50%, #6b4423 100%); margin: 0 auto; border-radius: 4px 4px 0 0; transition: height 0.3s ease, width 0.3s ease; }
+.foliage { background: radial-gradient(circle, #4ade80 0%, #16a34a 70%); border-radius: 50%; box-shadow: 0 4px 16px rgba(0,0,0,0.2); margin: 0 auto -10px; position: relative; transition: width 0.3s ease, height 0.3s ease, background 0.5s ease; }
+.foliage.flowering { background: radial-gradient(circle, #f9a8d4 30%, #ec4899 100%); }
+.foliage.fruiting { background: radial-gradient(circle, #ef4444 20%, #dc2626 100%); }
+.fruit-emoji { position: absolute; font-size: 20px; pointer-events: none; }
+#counter { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.85); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #2d3748; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 #counter strong { color: #16a34a; font-size: 18px; font-variant-numeric: tabular-nums; }
-
-#stage-name {
-    position: absolute;
-    top: 88px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255,255,255,0.7);
-    padding: 4px 10px;
-    border-radius: 16px;
-    font-size: 11px;
-    color: #2d3748;
-    font-weight: 600;
-}
-
-.actions {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 10;
-}
-.btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 24px;
-    font-size: 13px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
+#stage-name { position: absolute; top: 88px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.7); padding: 4px 10px; border-radius: 16px; font-size: 11px; color: #2d3748; font-weight: 600; }
+.actions { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+.btn { padding: 10px 16px; border: none; border-radius: 24px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .btn-reset { background: #6b7280; }
 .btn-share { background: #1d9bf0; }
-
-.particle {
-    position: absolute;
-    pointer-events: none;
-    font-size: 24px;
-    transition: transform 1s ease-out, opacity 1s ease-out;
-}
-
-.weather {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-.cloud {
-    position: absolute;
-    color: rgba(255,255,255,0.8);
-    font-size: 60px;
-    animation: drift 60s linear infinite;
-}
-@keyframes drift {
-    from { transform: translateX(-100px); }
-    to { transform: translateX(120vw); }
-}
-
-.tap-hint {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgba(45,55,72,0.6);
-    font-size: 14px;
-    font-weight: 700;
-    pointer-events: none;
-    animation: fade-pulse 2s infinite;
-}
-@keyframes fade-pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-}
+.particle { position: absolute; pointer-events: none; font-size: 24px; transition: transform 1s ease-out, opacity 1s ease-out; }
+.weather { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.cloud { position: absolute; color: rgba(255,255,255,0.8); font-size: 60px; animation: drift 60s linear infinite; }
+@keyframes drift { from { transform: translateX(-100px); } to { transform: translateX(120vw); } }
+.tap-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(45,55,72,0.6); font-size: 14px; font-weight: 700; pointer-events: none; animation: fade-pulse 2s infinite; }
+@keyframes fade-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
 .tap-hint.gone { display: none; }
 </style>
 </head>
 <body>
-<div class="topbar">
-    <a href="https://pndshch.github.io/">← Pinda Lab</a>
-    <span>ぴょんぴょんき</span>
+<div class="lang-switch">
+    <button class="lang-btn" data-lang="ja">JP</button>
+    <button class="lang-btn" data-lang="en">EN</button>
 </div>
+<div class="topbar"><a href="https://pndshch.github.io/" data-i18n="back">← Pinda Lab</a></div>
 
 <div id="stage">
     <div class="weather">
         <div class="cloud" style="top: 8%; animation-delay: 0s">☁️</div>
         <div class="cloud" style="top: 18%; animation-delay: -30s">☁️</div>
     </div>
-
-    <div id="counter">タップ <strong id="taps">0</strong></div>
-    <div id="stage-name">め (たね)</div>
-
-    <div class="tree" id="tree">
-        <div class="foliage" id="foliage" style="width: 0; height: 0;"></div>
-        <div class="trunk" id="trunk" style="height: 4px;"></div>
-    </div>
-
-    <div class="tap-hint" id="hint">↑ 木をタップしてみよう</div>
+    <div id="counter"><span data-i18n="taps">タップ</span> <strong id="taps">0</strong></div>
+    <div id="stage-name" data-i18n="stage0">め (たね)</div>
+    <div class="tree" id="tree"><div class="foliage" id="foliage" style="width: 0; height: 0;"></div><div class="trunk" id="trunk" style="height: 4px;"></div></div>
+    <div class="tap-hint" id="hint" data-i18n="tapHint">↑ 木をタップしてみよう</div>
 </div>
 
 <div class="actions">
-    <button class="btn btn-reset" id="reset">🔄 さいしょから</button>
+    <button class="btn btn-reset" id="reset" data-i18n="reset">🔄 さいしょから</button>
     <button class="btn btn-share" id="share">𝕏</button>
 </div>
 
 <script>
 'use strict';
+const I18N = {
+    ja: { back: '← Pinda Lab', taps: 'タップ', tapHint: '↑ 木をタップしてみよう', reset: '🔄 さいしょから',
+          confirmReset: '木を最初からそだてなおしますか?',
+          stages: [
+            { from: 0, name: 'め (たね)' }, { from: 5, name: 'すこし のびた' }, { from: 15, name: 'ちいさな き' },
+            { from: 35, name: 'すくすく せいちょうちゅう' }, { from: 70, name: 'りっぱな き' }, { from: 120, name: 'はなが さきはじめた!' },
+            { from: 200, name: 'まんかいの き 🌸' }, { from: 350, name: 'みが なってきた' }, { from: 500, name: 'たわわな じゅもく 🍎' },
+            { from: 800, name: 'でんせつの き ✨' }, { from: 1500, name: 'うちゅうのき 🌌' }
+          ],
+          shareText: (n, name) => `ぴょんぴょんき で ${n} かい タップ!\n${name}\n\n#PindaLab` },
+    en: { back: '← Pinda Lab', taps: 'Taps', tapHint: '↑ Tap the tree!', reset: '🔄 Reset',
+          confirmReset: 'Reset and grow a new tree?',
+          stages: [
+            { from: 0, name: 'Seed' }, { from: 5, name: 'Sprout' }, { from: 15, name: 'Small Tree' },
+            { from: 35, name: 'Growing' }, { from: 70, name: 'Mature Tree' }, { from: 120, name: 'Flowering!' },
+            { from: 200, name: 'Full Bloom 🌸' }, { from: 350, name: 'Fruiting' }, { from: 500, name: 'Bountiful Tree 🍎' },
+            { from: 800, name: 'Legendary Tree ✨' }, { from: 1500, name: 'Cosmic Tree 🌌' }
+          ],
+          shareText: (n, name) => `Tapped my Bouncy Tree ${n} times!\n${name}\n\n#PindaLab` },
+};
+let curLang = 'ja';
+function applyLang(lang) {
+    curLang = lang;
+    const dict = I18N[lang] || I18N.ja;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.dataset.i18n; if (typeof dict[key] === 'string') el.textContent = dict[key]; });
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+    try { localStorage.setItem('pl-lang', lang); } catch {}
+    document.title = (lang === 'ja' ? 'ぴょんぴょんき' : 'Bouncy Tree') + ' | Pinda Lab';
+    update();
+}
+document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
+
 const STORAGE = 'pl-pyon-taps';
 let taps = 0;
 try { taps = parseInt(localStorage.getItem(STORAGE)) || 0; } catch {}
 
-const STAGES = [
-    { from: 0,    name: 'め (たね)' },
-    { from: 5,    name: 'すこし のびた' },
-    { from: 15,   name: 'ちいさな き' },
-    { from: 35,   name: 'すくすく せいちょうちゅう' },
-    { from: 70,   name: 'りっぱな き' },
-    { from: 120,  name: 'はなが さきはじめた!' },
-    { from: 200,  name: 'まんかいの き 🌸' },
-    { from: 350,  name: 'みが なってきた' },
-    { from: 500,  name: 'たわわな じゅもく 🍎' },
-    { from: 800,  name: 'でんせつの き ✨' },
-    { from: 1500, name: 'うちゅうのき 🌌' },
-];
-
 function update() {
+    const dict = I18N[curLang] || I18N.ja;
     document.getElementById('taps').textContent = taps;
     try { localStorage.setItem(STORAGE, String(taps)); } catch {}
-
-    // tree size
     const trunk = document.getElementById('trunk');
     const foliage = document.getElementById('foliage');
     const trunkH = Math.min(220, 4 + Math.sqrt(taps) * 6);
     const trunkW = Math.min(50, 12 + Math.sqrt(taps) * 1.4);
     const folSize = Math.min(280, 12 + Math.sqrt(taps) * 8);
-
     trunk.style.height = trunkH + 'px';
     trunk.style.width = trunkW + 'px';
     foliage.style.width = folSize + 'px';
     foliage.style.height = folSize + 'px';
-
-    // foliage state
     foliage.classList.remove('flowering', 'fruiting');
     if (taps >= 350) foliage.classList.add('fruiting');
     else if (taps >= 120) foliage.classList.add('flowering');
-
-    // emoji decorations on tree
     foliage.innerHTML = '';
     if (taps >= 120) {
         const flowers = Math.min(20, Math.floor((taps - 120) / 15));
@@ -258,66 +134,43 @@ function update() {
             foliage.appendChild(f);
         }
     }
-
-    // stage name
-    let curStage = STAGES[0];
-    for (const s of STAGES) if (taps >= s.from) curStage = s;
+    let curStage = dict.stages[0];
+    for (const s of dict.stages) if (taps >= s.from) curStage = s;
     document.getElementById('stage-name').textContent = curStage.name;
-
     if (taps > 0) document.getElementById('hint').classList.add('gone');
 }
-
 function tap(x, y) {
-    taps++;
-    update();
+    taps++; update();
     const tree = document.getElementById('tree');
-    tree.classList.remove('bounce');
-    void tree.offsetWidth;
-    tree.classList.add('bounce');
-
-    // particle (leaf or flower fly off)
+    tree.classList.remove('bounce'); void tree.offsetWidth; tree.classList.add('bounce');
     if (Math.random() < 0.6) {
-        const p = document.createElement('div');
-        p.className = 'particle';
+        const p = document.createElement('div'); p.className = 'particle';
         const emojis = taps >= 350 ? ['🍎','🍒','🌸'] : taps >= 120 ? ['🌸','🌺','✨'] : taps >= 35 ? ['🍃','🌿'] : ['💚'];
         p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-        p.style.left = (x - 12) + 'px';
-        p.style.top = (y - 12) + 'px';
+        p.style.left = (x - 12) + 'px'; p.style.top = (y - 12) + 'px';
         document.getElementById('stage').appendChild(p);
         const dx = (Math.random() - 0.5) * 200;
         const dy = -100 - Math.random() * 100;
-        requestAnimationFrame(() => {
-            p.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random()*360}deg)`;
-            p.style.opacity = '0';
-        });
+        requestAnimationFrame(() => { p.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random()*360}deg)`; p.style.opacity = '0'; });
         setTimeout(() => p.remove(), 1000);
     }
 }
-
 document.getElementById('stage').addEventListener('click', (e) => tap(e.clientX, e.clientY));
-document.getElementById('stage').addEventListener('touchstart', (e) => {
-    if (e.target.closest('.btn,.topbar')) return;
-    e.preventDefault();
-    const t = e.touches[0];
-    tap(t.clientX, t.clientY);
-}, { passive: false });
-
-document.getElementById('reset').addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (!confirm('木を最初からそだてなおしますか?')) return;
-    taps = 0;
-    update();
-});
+document.getElementById('stage').addEventListener('touchstart', (e) => { if (e.target.closest('.btn,.topbar,.lang-switch')) return; e.preventDefault(); const t = e.touches[0]; tap(t.clientX, t.clientY); }, { passive: false });
+document.getElementById('reset').addEventListener('click', (e) => { e.stopPropagation(); const dict = I18N[curLang] || I18N.ja; if (!confirm(dict.confirmReset)) return; taps = 0; update(); });
 document.getElementById('share').addEventListener('click', (e) => {
     e.stopPropagation();
-    const txt = `ぴょんぴょんき で ${taps} かい タップ!\n${document.getElementById('stage-name').textContent}\n\n#PindaLab`;
+    const dict = I18N[curLang] || I18N.ja;
+    const stageName = document.getElementById('stage-name').textContent;
+    const txt = dict.shareText(taps, stageName);
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(txt)}&url=${encodeURIComponent('https://pndshch.github.io/pyon-tree/')}`, '_blank', 'noopener');
 });
-['reset','share'].forEach(id => {
-    document.getElementById(id).addEventListener('click', (e) => e.stopPropagation());
-});
+['reset','share'].forEach(id => document.getElementById(id).addEventListener('click', (e) => e.stopPropagation()));
 
-update();
+let initLang;
+try { initLang = localStorage.getItem('pl-lang'); } catch {}
+if (!initLang) { const nav = (navigator.language || 'ja').toLowerCase(); initLang = nav.startsWith('ja') ? 'ja' : 'en'; }
+applyLang(initLang);
 </script>
 </body>
 </html>
